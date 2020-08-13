@@ -2,6 +2,8 @@
 
 Django ベースの CMS Wagtail をお手軽に試すための Docker イメージです。
 
+- [Wagtail CMS](https://wagtail.io/)
+
 ## 使い方
 
 Docker イメージを作成します。
