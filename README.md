@@ -1,5 +1,7 @@
 # `wagtail-example-ja`
 
+![Wagtail Welcome Page](https://raw.githubusercontent.com/gh640/wagtail-example-ja/main/assets/wagtail-welcome-page.png)
+
 Django ベースの CMS Wagtail をお手軽に試すための Docker イメージです。
 
 - [Wagtail CMS](https://wagtail.io/)
