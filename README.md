@@ -4,20 +4,23 @@ Django ベースの CMS Wagtail をお手軽に試すための Docker イメー�
 
 - [Wagtail CMS](https://wagtail.io/)
 
+## 必須
+
+- Docker 20.10.7 以上
+- Docker Compose 1.9 以上
+
 ## 使い方
 
 Docker イメージを作成します。
 
 ```bash
-. init.sh
+docker compose build
 ```
 
-`init.sh` を実行すると `wagtail` という名前のイメージが作成されます。
-
-続いてこのイメージを走らせます。
+イメージを使ったコンテナを走らせます。
 
 ```bash
-. run.sh
+docker compose up -d
 ```
 
 `runserver` でサーバーが立ち上がるので http://localhost:8000 にアクセスして確認します。
@@ -25,16 +28,33 @@ Docker イメージを作成します。
 
 試し終わったら <kbd>ctrl + c</kbd> 等で終了します。
 
-使い終わったら `wagtail` イメージを削除します。
+使い終わったらコンテナを終了します。
 
 ```bash
-docker image rm wagtail
+docker compose down
+```
+
+すべて使い終わったらイメージを削除します。
+
+```bash
+docker image rm wagtail-example-ja_app
 ```
 
 イメージを作成するときに superuser が作成されますが、その名前・メールアドレス・パスワードを変更したいときは `--build-arg` を使います。
 
-```bash
-docker build -t wagtail -f Dockerfile --build-arg DJANGO_SUPERUSER_USERNAME=doraemon .
+```yaml
+version: "3"
+
+services:
+  app:
+    build: 
+      context: .
+      args:
+        DJANGO_SUPERUSER_USERNAME: doraemon
+        DJANGO_SUPERUSER_EMAIL: example@example.com
+        DJANGO_SUPERUSER_PASSWORD: bokudoraemon
+    ports:
+      - "8000:8000"
 ```
 
 利用可能な引数は次のとおりです。
@@ -51,6 +71,6 @@ docker build -t wagtail -f Dockerfile --build-arg DJANGO_SUPERUSER_USERNAME=dora
 
 Wagtail ・ Django ・ Python が以下のバージョンのときに動作確認をしています。
 
-- Wagtail 2.10
-- Django 3.1
-- Python 3.x
+- Wagtail 2.13
+- Django 3.2
+- Python 3.9
