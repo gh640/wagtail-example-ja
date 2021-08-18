@@ -9,7 +9,7 @@ Django ベースの CMS Wagtail をお手軽に試すための Docker イメー�
 ## 必須
 
 - Docker 20.10.7 以上
-- Docker Compose 1.9 以上
+- Docker Compose 2.0.0-beta.6 以上
 
 ## 使い方
 
@@ -25,24 +25,25 @@ docker compose build
 docker compose up -d
 ```
 
-`runserver` でサーバーが立ち上がるので http://localhost:8000 にアクセスして確認します。
-管理画面は http://localhost:8000/admin で確認できます。
+`runserver` でサーバーが立ち上がるのでブラウザでサイトにアクセスして確認します。
 
-試し終わったら <kbd>ctrl + c</kbd> 等で終了します。
+URL:
 
-使い終わったらコンテナを終了します。
+- ローカルのマシンの場合: `http://localhost:8000`
+- GitHub Codespaces の場合: `https://${CODESPACE_NAME}-8000.githubpreview.dev`
 
-```bash
-docker compose down
-```
+管理画面にはパス `/admin` からアクセスできます。
 
-すべて使い終わったらイメージを削除します。
+![Wagtail Japanese Admin Page](https://raw.githubusercontent.com/gh640/wagtail-example-ja/main/assets/wagtail-admin-page-japanese.png)
 
-```bash
-docker image rm wagtail-example-ja_app
-```
+デフォルトで利用できる superuser のユーザー名・パスワードは次のとおりです。
 
-イメージを作成するときに superuser が作成されますが、その名前・メールアドレス・パスワードを変更したいときは `--build-arg` を使います。
+- ユーザー名: `root`
+- パスワード: `password`
+
+これらのユーザー名・パスワードとメールアドレスはイメージのビルド時に `--build-arg` で変更できます。
+
+`docker-compose.yml` でセットする場合のイメージ:
 
 ```yaml
 version: "3"
@@ -59,20 +60,22 @@ services:
       - "8000:8000"
 ```
 
-利用可能な引数は次のとおりです。
+使い終わったらコンテナを終了します。
 
-- `DJANGO_SUPERUSER_USERNAME`: ユーザー名
-- `DJANGO_SUPERUSER_EMAIL`: メールアドレス
-- `DJANGO_SUPERUSER_PASSWORD`: パスワード
+```bash
+docker compose down
+```
 
-参考:
+すべて使い終わったらイメージを削除します。
 
-- [Using ARG variables | Dockerfile reference | Docker Documentation](https://docs.docker.com/engine/reference/builder/#using-arg-variables)
+```bash
+docker image rm wagtail-example-ja_app
+```
 
-## 前提条件
+## 動作確認時のバージョン
 
-Wagtail ・ Django ・ Python が以下のバージョンのときに動作確認をしています。
+動作確認は以下のバージョンで行いました。
 
-- Wagtail 2.13
+- Wagtail 2.14
 - Django 3.2
 - Python 3.9
