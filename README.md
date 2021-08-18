@@ -11,9 +11,13 @@ Django ベースの CMS Wagtail をお手軽に試すための Docker イメー�
 - Docker 20.10.7 以上
 - Docker Compose 2.0.0-beta.6 以上
 
+※ GitHub Codespaces を使う場合これらは不要です
+
 ## 使い方
 
-Docker イメージを作成します。
+まずこのリポジトリをチェックアウトするか GitHub Codespaces で開きます。
+
+続いて Docker イメージを作成します。
 
 ```bash
 docker compose build
